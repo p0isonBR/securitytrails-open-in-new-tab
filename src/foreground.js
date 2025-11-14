@@ -1,14 +1,14 @@
 function addOpenInNewTabColumnToDomainList() {
     // Get table of domains.
-    const domainTable = document.querySelector('div.apex-domain div.app-body table.ui-table');
+    const domainTable = document.querySelector('table.ui-table');
 
     if (! domainTable) {
         console.warn('Domain list not found.');
-    } else if (domainTable.querySelector('thead tr th').innerText == chrome.i18n.getMessage('tableHeaderTitle')) {
+    } else if (domainTable.querySelector('thead > tr > th').innerText == chrome.i18n.getMessage('tableHeaderTitle')) {
         console.warn('Open column already added to domain list.')
     } else {
         // Add column to table header.
-        const domainTableHeader = domainTable.querySelector('thead tr');
+        const domainTableHeader = domainTable.querySelector('thead > tr');
 
         const openColumnHeaderCell = document.createElement('th');
         openColumnHeaderCell.className = 'text-sm';
@@ -17,10 +17,10 @@ function addOpenInNewTabColumnToDomainList() {
         domainTableHeader.prepend(openColumnHeaderCell);
 
         // Add column to domain rows.
-        const domainTableRows = domainTable.querySelectorAll('tbody tr');
+        const domainTableRows = domainTable.querySelectorAll('tbody > tr');
 
         for (const domainRow of domainTableRows) {
-            const domain = domainRow.querySelector('td a').textContent;
+            const domain = domainRow.querySelector('td > a').textContent;
 
             const httpUrl = 'http://' + domain;
             const httpsUrl = 'https://' + domain;
